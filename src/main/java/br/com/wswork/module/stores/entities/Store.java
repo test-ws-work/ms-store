@@ -10,31 +10,34 @@ public class Store {
     private Long id;
 
     @Column
-    private final String name;
+    private String name;
 
     @Column
-    private final String address;
+    private String address;
 
     @Column
-    private final Long number;
+    private Long number;
 
     @Column
-    private final String complement;
+    private String complement;
 
     @Column
-    private final String neighbor;
+    private String neighbor;
 
     @Column
-    private final String state;
+    private String state;
 
     @Column
-    private final String city;
+    private String city;
 
     @Column
-    private final String country;
+    private String country;
 
     @Column
-    private final Long userId;
+    private Long userId;
+
+    public Store() {
+    }
 
     public Store(final String name,
                  final String address,
