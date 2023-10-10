@@ -1,6 +1,6 @@
 package br.com.wswork.module.stores.dtos.responses;
 
-public class CreateStoreDtoResponse {
+public class StoreDtoResponse {
 
     private Long id;
 
