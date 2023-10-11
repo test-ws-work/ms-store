@@ -27,11 +27,19 @@ public class StoreController {
         return storeService.create(request);
     }
 
-    @GetMapping("{userId}")
+    @GetMapping("by-user/{userId}")
     public ResponseEntity<Collection<StoreDtoResponse>> find(
             @PathVariable(name = "userId", required = true) final Long userId) {
 
         return storeService.find(userId);
+    }
+
+    @GetMapping("by-store/{storeId}")
+    public ResponseEntity<StoreDtoResponse> findById(
+            @PathVariable(name = "storeId", required = true) final Long storeId,
+            @RequestParam(name = "userId", required = true) final Long userId) {
+
+        return storeService.findById(storeId, userId);
     }
 
     @DeleteMapping("")
