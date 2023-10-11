@@ -5,12 +5,11 @@ import br.com.wswork.module.stores.dtos.responses.StoreDtoResponse;
 import br.com.wswork.module.stores.services.StoreService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
-@Controller()
+@RestController()
 @RequestMapping(path = "api/v1/stores", produces = MediaType.APPLICATION_JSON_VALUE)
 public class StoreController {
 
