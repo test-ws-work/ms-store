@@ -47,7 +47,7 @@ public class StoreService {
         return ResponseEntity.ok(storeResponse);
     }
 
-    public ResponseEntity<Collection<StoreDtoResponse>> find(Long userId) {
+    public ResponseEntity<Collection<StoreDtoResponse>> find(final Long userId) {
 
         LOGGER.info("Searching Store by personId...");
         Collection<Store> stores = storeRepository.findAllByUserIdAndStatus(userId, StoreStatusEnum.ACTIVE);
@@ -68,7 +68,19 @@ public class StoreService {
         return ResponseEntity.ok(response);
     }
 
-    public void delete(Long storeId) {
+    public ResponseEntity<StoreDtoResponse> findById(final Long storeId, final Long userId) {
+
+        LOGGER.info("Searching Store by id...");
+        Store store = storeRepository.findByIdAndUserIdAndStatus(storeId, userId, StoreStatusEnum.ACTIVE)
+                .orElseThrow(() -> new BusinessException(HttpStatus.NOT_FOUND.value(),HttpStatus.NOT_FOUND.getReasonPhrase(), "Store not found."));
+        LOGGER.info("Found.");
+
+        StoreDtoResponse response = storeResponse(store);
+
+        return ResponseEntity.ok(response);
+    }
+
+    public void delete(final Long storeId) {
 
         LOGGER.info("Searching Store by id...");
         Store store = storeRepository.findById(storeId)
@@ -82,7 +94,7 @@ public class StoreService {
         LOGGER.info("Saved.");
     }
 
-    private static StoreDtoResponse storeResponse(Store store) {
+    private static StoreDtoResponse storeResponse(final Store store) {
         StoreDtoResponse storeResponse = new StoreDtoResponse();
         storeResponse.setAddress(store.getAddress());
         storeResponse.setCity(store.getCity());
