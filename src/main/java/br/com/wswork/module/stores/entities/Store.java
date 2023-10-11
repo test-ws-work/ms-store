@@ -3,6 +3,7 @@ package br.com.wswork.module.stores.entities;
 import br.com.wswork.module.stores.constants.StoreStatusEnum;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "stores")
@@ -41,6 +42,9 @@ public class Store {
 
     @Column
     private Long userId;
+
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
+    private Collection<Product> product;
 
     public Store() {
     }
