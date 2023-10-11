@@ -1,5 +1,7 @@
 package br.com.wswork.module.stores.entities;
 
+import br.com.wswork.module.stores.constants.StoreStatusEnum;
+
 import javax.persistence.*;
 
 @Entity
@@ -32,6 +34,10 @@ public class Store {
 
     @Column
     private String country;
+
+    @Column()
+    @Enumerated(EnumType.STRING)
+    private StoreStatusEnum status = StoreStatusEnum.ACTIVE;
 
     @Column
     private Long userId;
@@ -95,7 +101,15 @@ public class Store {
         return country;
     }
 
+    public StoreStatusEnum getStatus() {
+        return status;
+    }
+
     public Long getUserId() {
         return userId;
+    }
+
+    public void setStatus(StoreStatusEnum status) {
+        this.status = status;
     }
 }

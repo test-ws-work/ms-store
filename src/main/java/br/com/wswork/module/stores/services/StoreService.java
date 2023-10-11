@@ -1,6 +1,7 @@
 package br.com.wswork.module.stores.services;
 
 import br.com.wswork.module.stores.configs.BusinessException;
+import br.com.wswork.module.stores.constants.StoreStatusEnum;
 import br.com.wswork.module.stores.dtos.requests.CreateStoreDtoRequest;
 import br.com.wswork.module.stores.dtos.responses.StoreDtoResponse;
 import br.com.wswork.module.stores.entities.Store;
@@ -49,7 +50,7 @@ public class StoreService {
     public ResponseEntity<Collection<StoreDtoResponse>> find(Long userId) {
 
         LOGGER.info("Searching Store by personId...");
-        Collection<Store> stores = storeRepository.findAllByUserId(userId);
+        Collection<Store> stores = storeRepository.findAllByUserIdAndStatus(userId, StoreStatusEnum.ACTIVE);
         LOGGER.info("Found.");
 
         if (stores.isEmpty()) {
@@ -67,6 +68,20 @@ public class StoreService {
         return ResponseEntity.ok(response);
     }
 
+    public void delete(Long storeId) {
+
+        LOGGER.info("Searching Store by id...");
+        Store store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new BusinessException(HttpStatus.NOT_FOUND.value(),HttpStatus.NOT_FOUND.getReasonPhrase(), "Store not found."));
+        LOGGER.info("Found.");
+
+        store.setStatus(StoreStatusEnum.INNACTIVE);
+
+        LOGGER.info("Saving changes...");
+        storeRepository.save(store);
+        LOGGER.info("Saved.");
+    }
+
     private static StoreDtoResponse storeResponse(Store store) {
         StoreDtoResponse storeResponse = new StoreDtoResponse();
         storeResponse.setAddress(store.getAddress());
@@ -79,6 +94,7 @@ public class StoreService {
         storeResponse.setNumber(store.getNumber());
         storeResponse.setPersonId(store.getUserId());
         storeResponse.setState(store.getState());
+        storeResponse.setStatus(store.getStatus());
 
         return storeResponse;
     }

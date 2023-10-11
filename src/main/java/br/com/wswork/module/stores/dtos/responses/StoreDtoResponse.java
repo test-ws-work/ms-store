@@ -1,5 +1,7 @@
 package br.com.wswork.module.stores.dtos.responses;
 
+import br.com.wswork.module.stores.constants.StoreStatusEnum;
+
 public class StoreDtoResponse {
 
     private Long id;
@@ -20,6 +22,7 @@ public class StoreDtoResponse {
 
     private String country;
 
+    private StoreStatusEnum status;
     private Long personId;
 
     public Long getId() {
@@ -92,6 +95,14 @@ public class StoreDtoResponse {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public StoreStatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(StoreStatusEnum status) {
+        this.status = status;
     }
 
     public Long getPersonId() {
