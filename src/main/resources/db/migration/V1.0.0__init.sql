@@ -8,6 +8,7 @@ CREATE TABLE stores (
     state VARCHAR(4),
     city VARCHAR(60),
     country VARCHAR(4),
+    status VARCHAR(30) NOT NULL,
     user_id INT NOT NULL
 );
 

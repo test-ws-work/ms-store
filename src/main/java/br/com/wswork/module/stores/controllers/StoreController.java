@@ -33,4 +33,11 @@ public class StoreController {
 
         return storeService.find(userId);
     }
+
+    @DeleteMapping("")
+    public ResponseEntity<?> delete(
+            @RequestParam(name = "storeId", required = true) final Long storeId) {
+        storeService.delete(storeId);
+        return ResponseEntity.noContent().build();
+    }
 }
