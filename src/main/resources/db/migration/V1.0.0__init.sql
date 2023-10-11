@@ -15,6 +15,7 @@ CREATE TABLE stores (
 CREATE TABLE products (
     id SERIAL PRIMARY KEY,
     name VARCHAR(80) NOT NULL,
+    brand VARCHAR(80) NOT NULL,
     price DOUBLE PRECISION NOT NULL,
     description VARCHAR NOT NULL,
     category VARCHAR(50),

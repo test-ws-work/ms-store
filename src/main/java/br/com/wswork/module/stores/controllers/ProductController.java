@@ -7,6 +7,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
+
 @RestController
 @RequestMapping(path = "api/v1/products", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ProductController {
@@ -23,5 +25,27 @@ public class ProductController {
             @PathVariable(name = "userId") final Long userId)  {
 
         return productService.create(request, userId);
+    }
+
+    @GetMapping(path = "by-product/{productId}")
+    public ResponseEntity<ProductDtoResponse> findProductById(
+            @PathVariable(name = "productId") final Long productId) {
+
+        return productService.findProductById(productId);
+    }
+
+    @GetMapping(path = "by-store/{storeId}")
+    public ResponseEntity<Collection<ProductDtoResponse>> searchAllProductsByStore(
+            @PathVariable(name = "storeId") final Long storeId) {
+
+        return productService.searchAllProductsByStore(storeId);
+    }
+
+    @GetMapping(path = "{storeId}/by-brand")
+    public ResponseEntity<Collection<ProductDtoResponse>> searchAllProductsByBrand(
+            @PathVariable(name = "storeId", required = true) final Long storeId,
+            @RequestParam(name = "brand", required = true) final String brand){
+
+        return productService.searchAllProductsByBrand(storeId, brand);
     }
 }

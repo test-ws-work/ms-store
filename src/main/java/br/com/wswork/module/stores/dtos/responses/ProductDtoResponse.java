@@ -14,6 +14,9 @@ public class ProductDtoResponse {
     private String name;
 
     @JsonProperty
+    private String brand;
+
+    @JsonProperty
     private BigDecimal price;
 
     @JsonProperty
@@ -42,6 +45,14 @@ public class ProductDtoResponse {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
     public BigDecimal getPrice() {

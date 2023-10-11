@@ -14,6 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 @Service
 public class ProductService {
 
@@ -40,6 +43,7 @@ public class ProductService {
         newProduct.setPrice(dto.getPrice());
         newProduct.setStock(dto.getStock());
         newProduct.setStore(store);
+        newProduct.setBrand(dto.getBrand());
 
         LOGGER.info("Saving product in database...");
         Product product = productRepository.save(newProduct);
@@ -50,6 +54,52 @@ public class ProductService {
         return ResponseEntity.ok(response);
     }
 
+    public ResponseEntity<ProductDtoResponse> findProductById(final Long productId) {
+        LOGGER.info("Searching product by id...");
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new BusinessException(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.getReasonPhrase(), "Product not found."));
+        LOGGER.info("Found.");
+
+        ProductDtoResponse response = productResponse(product);
+
+        return ResponseEntity.ok(response);
+    }
+
+    public ResponseEntity<Collection<ProductDtoResponse>> searchAllProductsByStore(final Long storeId) {
+
+        LOGGER.info("Searching all products by store...");
+        Collection<Product> products = productRepository.findAllByStoreId(storeId);
+        LOGGER.info("Found.");
+
+        Collection<ProductDtoResponse> response = new ArrayList<>();
+        for (Product product : products) {
+            ProductDtoResponse p = productResponse(product);
+
+            response.add(p);
+        }
+
+        return ResponseEntity.ok(response);
+    }
+
+    public ResponseEntity<Collection<ProductDtoResponse>> searchAllProductsByBrand(Long storeId, String brand) {
+        LOGGER.info("Searching all products in store by brand...");
+        Collection<Product> products = productRepository.findAllByStoreIdAndBrandIgnoreCase(storeId, brand);
+        LOGGER.info("Found.");
+
+        if (products.isEmpty()) {
+            throw new BusinessException(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.getReasonPhrase(), "Products not found.");
+        }
+
+        Collection<ProductDtoResponse> response = new ArrayList<>();
+
+        for (Product product : products) {
+            ProductDtoResponse p = productResponse(product);
+
+            response.add(p);
+        }
+
+        return ResponseEntity.ok(response);
+    }
     private static ProductDtoResponse productResponse(final Product product) {
         ProductDtoResponse response = new ProductDtoResponse();
         response.setCategory(product.getCategory());
@@ -59,7 +109,9 @@ public class ProductService {
         response.setStock(product.getStock());
         response.setName(product.getName());
         response.setStore(product.getStore());
+        response.setBrand(product.getBrand());
 
         return response;
     }
+
 }
