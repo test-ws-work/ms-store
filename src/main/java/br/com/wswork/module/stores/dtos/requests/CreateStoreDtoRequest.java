@@ -45,9 +45,6 @@ public class CreateStoreDtoRequest {
     @NotNull
     private String country;
 
-    @JsonProperty
-    @NotNull
-    private Long personId;
 
     public String getName() {
         return name;
@@ -113,11 +110,4 @@ public class CreateStoreDtoRequest {
         this.country = country;
     }
 
-    public Long getPersonId() {
-        return personId;
-    }
-
-    public void setPersonId(Long personId) {
-        this.personId = personId;
-    }
 }

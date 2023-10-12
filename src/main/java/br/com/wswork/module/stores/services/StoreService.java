@@ -26,7 +26,7 @@ public class StoreService {
         this.storeRepository = storeRepository;
     }
 
-    public ResponseEntity<StoreDtoResponse> create(@Valid final CreateStoreDtoRequest dto) {
+    public ResponseEntity<StoreDtoResponse> create(final Long userId, @Valid final CreateStoreDtoRequest dto) {
 
         Store store = new Store(dto.getName(),
                   dto.getAddress(),
@@ -36,7 +36,7 @@ public class StoreService {
                   dto.getState(),
                   dto.getCity(),
                   dto.getCountry(),
-                  dto.getPersonId());
+                  userId);
 
         LOGGER.info("Saving new Store in  database...");
         Store newStore = storeRepository.save(store);

@@ -19,11 +19,12 @@ public class StoreController {
         this.storeService = storeService;
     }
 
-    @PostMapping("")
+    @PostMapping("{userId}")
     public ResponseEntity<StoreDtoResponse> create(
+            @PathVariable(name = "userId") final Long userId,
             @RequestBody(required = true) final CreateStoreDtoRequest request) {
 
-        return storeService.create(request);
+        return storeService.create(userId, request);
     }
 
     @GetMapping("by-user/{userId}")
