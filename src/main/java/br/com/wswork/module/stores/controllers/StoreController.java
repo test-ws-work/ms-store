@@ -34,10 +34,10 @@ public class StoreController {
         return storeService.find(userId);
     }
 
-    @GetMapping("by-store/{storeId}")
+    @GetMapping("by-store/{userId}")
     public ResponseEntity<StoreDtoResponse> findById(
-            @PathVariable(name = "storeId", required = true) final Long storeId,
-            @RequestParam(name = "userId", required = true) final Long userId) {
+            @PathVariable(name = "userId", required = true) final Long userId,
+            @RequestParam(name = "storeId", required = true) final Long storeId) {
 
         return storeService.findById(storeId, userId);
     }
