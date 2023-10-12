@@ -46,6 +46,9 @@ public class Store {
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
     private Collection<Product> product;
 
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
+    private Collection<Sale> sale;
+
     public Store() {
     }
 
