@@ -1,11 +1,10 @@
 package br.com.wswork.module.stores.dtos.requests;
 
-import br.com.wswork.module.stores.entities.Store;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.math.BigDecimal;
 
-public class CreateProductDtoRequest {
+public class ProductDtoRequest {
 
     @JsonProperty
     private String name;

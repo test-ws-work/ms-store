@@ -2,6 +2,7 @@ package br.com.wswork.module.stores.entities;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Collection;
 
 @Entity
 @Table(name = "products")
@@ -32,6 +33,9 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "store_id")
     private Store store;
+
+    @OneToMany(mappedBy = "product")
+    private Collection<SaleProduct> saleProducts;
 
     public Long getId() {
         return id;

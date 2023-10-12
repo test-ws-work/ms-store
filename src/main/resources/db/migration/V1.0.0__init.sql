@@ -28,14 +28,21 @@ CREATE TABLE products (
 CREATE TABLE sales (
     id SERIAL PRIMARY KEY,
     costumer_id INT NOT NULL,
-    quantity INT NOT NULL,
-    product_price DOUBLE PRECISION NOT NULL,
-    total_price DOUBLE PRECISION NOT NULL,
+    total_price DOUBLE PRECISION,
     tax INT NOT NULL,
     sale_date DATE,
-    product_id INT NOT NULL,
     store_id INT NOT NULL,
 
-    FOREIGN KEY (store_id) REFERENCES stores(id),
+    FOREIGN KEY (store_id) REFERENCES stores(id)
+);
+
+CREATE TABLE sales_products (
+    id SERIAL PRIMARY KEY,
+    sale_id INT,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    product_price DOUBLE PRECISION NOT NULL,
+
+    FOREIGN KEY (sale_id) REFERENCES sales(id),
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
