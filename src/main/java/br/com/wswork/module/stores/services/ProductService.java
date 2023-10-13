@@ -149,9 +149,14 @@ public class ProductService {
     }
 
     public void delete(final Long productId) {
-        LOGGER.info("Deleting product...");
-        productRepository.deleteById(productId);
-        LOGGER.info("Deleted.");
+        try {
+            LOGGER.info("Deleting product...");
+            productRepository.deleteById(productId);
+            LOGGER.info("Deleted.");
+        }catch (Exception exc) {
+            throw new BusinessException(exc.hashCode(), exc.getMessage(), "Error to delete product.");
+        }
+
     }
     private static ProductDtoResponse productResponse(final Product product) {
         ProductDtoResponse response = new ProductDtoResponse();
