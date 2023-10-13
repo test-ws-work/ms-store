@@ -142,6 +142,7 @@ public class SaleService {
         response.setSaleDate(saleResponse.getSaleDate());
         response.setStore(store.getName());
         response.setTotalPrice(saleResponse.getTotalPrice());
+        response.setQuantity(saleResponse.getSaleProducts().stream().map(SaleProduct::getQuantity).reduce(0, Integer::sum));
         return response;
     }
 }
