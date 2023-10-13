@@ -42,9 +42,9 @@ public class StoreController {
         return storeService.findById(storeId, userId);
     }
 
-    @DeleteMapping("")
+    @DeleteMapping("{storeId}")
     public ResponseEntity<?> delete(
-            @RequestParam(name = "storeId", required = true) final Long storeId) {
+            @PathVariable(name = "storeId", required = true) final Long storeId) {
         storeService.delete(storeId);
         return ResponseEntity.noContent().build();
     }
